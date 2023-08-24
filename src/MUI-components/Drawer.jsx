@@ -1,4 +1,11 @@
-import { Divider, Drawer, List, useTheme, IconButton } from "@mui/material";
+import {
+  Divider,
+  Drawer,
+  List,
+  useTheme,
+  IconButton,
+  Box,
+} from "@mui/material";
 import React from "react";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -35,83 +42,86 @@ const DrawerCoponent = ({
   ];
 
   return (
-    <Drawer
-      sx={{
-        display: { xs: noneORblock, sm: "block" },
+    <Box ccomponent="nav">
+      <Drawer
+        sx={{
+          display: { xs: noneORblock, sm: "block" },
 
-        width: `${drawerWidth}px`,
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
           width: `${drawerWidth}px`,
-          boxSizing: "border-box",
-        },
-      }}
-      variant={drawerType}
-      anchor="left"
-      open={true}
-      onClose={() => {
-        hideDrawer();
-      }}
-    >
-      <List>
-        <ListItem
-          sx={{ display: "flex", justifyContent: "center", mb: "14px" }}
-          disablePadding
-        >
-          <IconButton
-            onClick={() => {
-              localStorage.setItem(
-                "currentMode",
-                theme.palette.mode === "dark" ? "light" : "dark"
-              );
-
-              setMode(theme.palette.mode === "light" ? "dark" : "light");
-            }}
-            color="inherit"
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: `${drawerWidth}px`,
+            boxSizing: "border-box",
+          },
+        }}
+        variant={drawerType}
+        anchor="left"
+        open={true}
+        onClose={() => {
+          hideDrawer();
+        }}
+      >
+        <List>
+          <ListItem
+            sx={{ display: "flex", justifyContent: "center", mb: "14px" }}
+            disablePadding
           >
-            {theme.palette.mode === "dark" ? (
-              <Brightness7 sx={{ color: "orange" }} />
-            ) : (
-              <Brightness4 />
-            )}
-          </IconButton>
-        </ListItem>
+            <IconButton
+              onClick={() => {
+                localStorage.setItem(
+                  "currentMode",
+                  theme.palette.mode === "dark" ? "light" : "dark"
+                );
 
-        <Divider />
-        {myList.map((item) => {
-          return (
-            <ListItem key={item.text}
-              sx={{
-                bgcolor:
-                  currentLocation.pathname === item.path
-                    ? // @ts-ignore
-                      theme.palette.favColor.main
-                    : null,
+                setMode(theme.palette.mode === "light" ? "dark" : "light");
               }}
-              disablePadding
+              color="inherit"
             >
-              <ListItemButton
-                onClick={() => {
-                  navigate(item.path);
-                }}
-              >
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text} />
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
+              {theme.palette.mode === "dark" ? (
+                <Brightness7 sx={{ color: "orange" }} />
+              ) : (
+                <Brightness4 />
+              )}
+            </IconButton>
+          </ListItem>
 
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <Logout />
-            </ListItemIcon>
-            <ListItemText primary="Logout" />
-          </ListItemButton>
-        </ListItem>
-      </List>
-    </Drawer>
+          <Divider />
+          {myList.map((item) => {
+            return (
+              <ListItem
+                key={item.text}
+                sx={{
+                  bgcolor:
+                    currentLocation.pathname === item.path
+                      ? // @ts-ignore
+                        theme.palette.favColor.main
+                      : null,
+                }}
+                disablePadding
+              >
+                <ListItemButton
+                  onClick={() => {
+                    navigate(item.path);
+                  }}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <Logout />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Drawer>
+    </Box>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Box, IconButton, Paper, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Paper, Typography } from "@mui/material";
 import "./home.css";
 import React, { useEffect, useState } from "react";
 import { Close } from "@mui/icons-material";
@@ -17,11 +17,13 @@ const Home = () => {
       }
     };
     getData();
-  }, [data]);
+  }, []);
 
   const deleteData = async (item) => {
     try {
       await fetch(`http://localhost:3000/mydata/${item}`, { method: "DELETE" });
+      const currentData = data.filter((myObject)=>(myObject.id !== item  ))
+      setData(currentData);
     } catch (error) {
       console.log("[Home delete fn]", error);
     }
@@ -71,7 +73,7 @@ const Home = () => {
         );
       })}
       <Typography mt="55px" textAlign="center" variant="h6">
-        You spendt ${totalPrice} 
+        {totalPrice > 0 ?  `You spendt $${totalPrice}` : `` }
       </Typography>
     </Box>
   );

@@ -42,12 +42,7 @@ const Root = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Appbar drawerWidth={drawerWidth} showDrawer={showDrawer} />
-        <DrawerCoponent
-        drawerWidth={drawerWidth}
-        setMode ={setMode}
-        noneORblock={noneOrBlock}
-        drawerType={drawerType}
-        hideDrawer={hideDrawer}
+        <DrawerCoponent {... {drawerWidth,setMode,noneOrBlock,drawerType,hideDrawer}}
          />
 
         <Box
