@@ -26,10 +26,14 @@ const Home = () => {
       console.log("[Home delete fn]", error);
     }
   };
+
+  let totalPrice = 0;
   return (
     <Box>
       {data.map((item) => {
+        totalPrice+= item.price
         return (
+      
           <Paper
             key={item.id}
             sx={{
@@ -66,6 +70,9 @@ const Home = () => {
           </Paper>
         );
       })}
+      <Typography mt="55px" textAlign="center" variant="h6">
+        You spendt ${totalPrice} 
+      </Typography>
     </Box>
   );
 };
