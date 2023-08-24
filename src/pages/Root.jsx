@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { grey  } from "@mui/material/colors";
 
 
 import Appbar from "../MUI-components/Appbar";
 import DrawerCoponent from "../MUI-components/Drawer";
 import { Box } from "@mui/material";
+import getDesignTokens from "../styles/themes";
 
 const drawerWidth = 240;
 
@@ -21,46 +21,42 @@ const Root = () => {
     : "dark"
 
   );
-  const darkTheme = createTheme({
-    palette: {
-      // @ts-ignore
-      mode,
-      ...(mode === "light"
-        ? {
-            // palette values for light mode
-            ali: {
-              main: "#64748B",
-            },
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
-            favColor: {
-              main: grey[300],
-            },
-          }
-        : {
-            // palette values for dark mode
-            ali: {
-              main: "teal",
-            },
+  const [noneOrBlock, setNoneOrBlock] = useState("none");
+  const [drawerType, setdrawerType] = useState("permanent");
 
-            favColor: {
-              main: grey[800],
-            },
-          }),
-    },
-  });
+  const showDrawer = () => {
+    setdrawerType("temporary");
+    setNoneOrBlock("block");
+  };
+
+  const hideDrawer = () => {
+    setdrawerType("permanent");
+    setNoneOrBlock("none");
+  };
+
+
   return (
     <div>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Appbar drawerWidth={drawerWidth} />
-        <DrawerCoponent drawerWidth={drawerWidth} setMode={setMode} />
+        <Appbar drawerWidth={drawerWidth} showDrawer={showDrawer} />
+        <DrawerCoponent
+        drawerWidth={drawerWidth}
+        setMode ={setMode}
+        noneORblock={noneOrBlock}
+        drawerType={drawerType}
+        hideDrawer={hideDrawer}
+         />
 
         <Box
           component="main"
           sx={{
-            ml: `${drawerWidth}px`,
+            ml: { sm: `${drawerWidth}px` },
             display: " flex",
             justifyContent: "center",
+            mt: "66px",
           }}
           className="border"
         >

@@ -11,12 +11,14 @@ import {
 import Root from './pages/Root'
 import Home from "./pages/home/Home";
 import Create from "./pages/create/Create";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
       <Route index element={<Home />} />
       <Route path="create" element={<Create />} />
+      <Route path="*" element={<NotFound />} />
     
     </Route>
   )
